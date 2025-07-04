@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="en">
+<head>
+	<title>Publications – Riley Tough</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <style>
+    ul.pub-list {
+      padding-left: 1.2em;
+    }
+    li.pub {
+      margin-bottom: 1em;
+    }
+    h1 {
+    color: #f0f0f0; /* Off-white text */
+    }
+    h2 {
+    color: #f0f0f0; /* Off-white text */
+    }
+    body {
+    color: #f0f0f0; /* Off-white text */
+    }
+    ul {
+    color: #f0f0f0; /* Off-white text */
+    }
+    a {
+        color: #aad6ff; /* Lighter blue for links on dark background */
+    }
+    strong {
+        color: #aad6ff; /* Lighter blue for links on dark background */
+    }
+    a:hover {
+        color: #ffffff;
+    }
+    </style>
+	</head>
+</head>
+<body>
+  <header>
+    <h1>Publications</h1>
+  </header>
+
+  <main>
+    <section id="pubmed">
+      <ul id="pub-list" class="pub-list"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <!-- Copyright -->
+    <div id="copyright">
+        <ul><li>&copy; RILEY TOUGH 2025</li><li>DESIGN: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+        <ul>ALL VIEWS EXPRESSED ARE MY OWN</ul>
+    </div>
+  </footer>
+
+  <script>
+    // Replace with your actual PubMed author query
+    const query = "Tough+Riley[Author]";
+    const url = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=${query}&retmode=json`;
+
+    async function fetchPublications() {
+      const res = await fetch(url);
+      const data = await res.json();
+      const ids = data.esearchresult.idlist;
+      if (!ids.length) return;
+
+      const summaryUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=${ids.join(",")}&retmode=json`;
+      const summaryRes = await fetch(summaryUrl);
+      const summaryData = await summaryRes.json();
+
+      const ul = document.getElementById("pub-list");
+      ids.forEach(id => {
+        const pub = summaryData.result[id];
+        const li = document.createElement("li");
+        li.className = "pub";
+        li.innerHTML = `<strong>${pub.title}</strong><br>
+          ${pub.authors.map(a => a.name).join(", ")}<br>
+          <em>${pub.source} (${pub.pubdate})</em><br>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/${id}/" target="_blank">View on PubMed</a>`;
+        ul.appendChild(li);
+      });
+    }
+
+    fetchPublications();
+  </script>
+</body>
+</html>
