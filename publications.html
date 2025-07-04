@@ -6,13 +6,14 @@
 -->
 <html lang="en">
 <head>
-	<title>Publications – Riley Tough</title>
+	<title>Publications:RTough</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
     <style>
     ul.pub-list {
+      list-style-type:none;
       padding-left: 1.2em;
     }
     li.pub {
@@ -21,19 +22,13 @@
     h1 {
     color: #f0f0f0; /* Off-white text */
     }
-    h2 {
-    color: #f0f0f0; /* Off-white text */
-    }
     body {
-    color: #f0f0f0; /* Off-white text */
-    }
-    ul {
-    color: #f0f0f0; /* Off-white text */
-    }
-    a {
-        color: #aad6ff; /* Lighter blue for links on dark background */
+    color: hsla(215%, 8%, 30%, 100%);
     }
     strong {
+        color: hsla(212%, 209%, 15%, 1%);
+    }
+    a {
         color: #aad6ff; /* Lighter blue for links on dark background */
     }
     a:hover {
@@ -42,27 +37,63 @@
     </style>
 	</head>
 </head>
+
 <body>
-  <header>
-    <h1>Publications</h1>
+    <header>
+    </br>
+        <h1 style="text-align: center;">Publications</h1>
+    </br>
+    </br>
   </header>
+</body>
 
-  <main>
-    <section id="pubmed">
-      <ul id="pub-list" class="pub-list"></ul>
-    </section>
-  </main>
+  <!-- Nav Bar -->
+    <nav id="nav">
+        <ul class="links">
+            <li><a href="index.html">About Me</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li class="active"><a href="publications.html">Publications</a></li>
+            <li><a href="resume.html">Resume</a></li>
+            <li><a href="cv.html">CV</a></li>
+            <li><a href="#footer">Contact</a></li>
+        </ul>
+        <ul class="icons">
+            <li><a href="https://github.com/RHTough" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+            <li><a href="https://www.linkedin.com/in/rileytough/" target="_blank" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+        </ul>
+        </br>
+    </nav>
 
-  <footer>
-    <!-- Copyright -->
-    <div id="copyright">
-        <ul><li>&copy; RILEY TOUGH 2025</li><li>DESIGN: <a href="https://html5up.net">HTML5 UP</a></li></ul>
-        <ul>ALL VIEWS EXPRESSED ARE MY OWN</ul>
+    <div id="main">
+        <section id="pubmed">
+        <ul id="pub-list" class="pub-list"></ul>
+        </section>
     </div>
-  </footer>
 
+<footer id="footer">
+    <section>
+        <section>
+            <h3>Contact</h3>
+            <p>Email: <a href="mailto:rileyhtough@gmail.com">rileyhtough@gmail.com</a></p>
+        </section>
+        <section>
+            <h3>Social</h3>
+            <ul class="icons alt">
+                <li><a href="https://github.com/RHTough" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+                <li><a href="https://www.linkedin.com/in/rileytough/" target="_blank" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+            </ul>
+        </section>
+    </section>
+</footer>
+
+<!-- Copyright -->
+<div id="copyright">
+    <ul><li>&copy; RILEY TOUGH 2025</li><li>DESIGN: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+    <ul>ALL VIEWS EXPRESSED ARE MY OWN</ul>
+</div>
+
+<!-- Pulling from Pubmed -->
   <script>
-    // Replace with your actual PubMed author query
     const query = "Tough+Riley[Author]";
     const url = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=${query}&retmode=json`;
 
@@ -82,8 +113,8 @@
         const li = document.createElement("li");
         li.className = "pub";
         li.innerHTML = `<strong>${pub.title}</strong><br>
-          ${pub.authors.map(a => a.name).join(", ")}<br>
-          <em>${pub.source} (${pub.pubdate})</em><br>
+          ${pub.authors.map(a => a.name).join(", ")}.
+          <em>${pub.source}</em>. ${pub.pubdate.split(" ")[0]}. </br>
           <a href="https://pubmed.ncbi.nlm.nih.gov/${id}/" target="_blank">View on PubMed</a>`;
         ul.appendChild(li);
       });
